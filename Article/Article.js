@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'New Article',
+    date: 'May 12th, 2020',
+    firstParagraph: `new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new!`,
+
+    secondParagraph: `new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new!`,
+
+    thirdParagraph: `new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new! new!`
   }
 ];
 
@@ -111,3 +120,64 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+const articleMaker = (title, date, p1, p2, p3) => {
+  const container = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const pardate = document.createElement('p');
+  const close = document.createElement('button');
+  const par1 = document.createElement('p');
+  const par2 = document.createElement('p');
+  const par3 = document.createElement('p');
+  const span = document.createElement('span');
+
+  container.appendChild(articleTitle);
+  container.appendChild(pardate);
+  container.appendChild(close);
+  container.appendChild(par1);
+  container.appendChild(par2);
+  container.appendChild(par3);
+  container.appendChild(span);
+  
+  container.classList.add('article');
+  pardate.classList.add('date');
+  close.classList.add('close')
+  span.classList.add('expandButton');
+
+  articleTitle.innerHTML = title;
+  pardate.innerHTML = date;
+  close.innerHTML = 'Close';
+  par1.innerHTML = p1;
+  par2.innerHTML = p2;
+  par3.innerHTML = p3;
+  span.textContent = 'Click to Expand';
+
+  span.addEventListener('click', () => {
+    if(container.classList.value === 'article') {
+      container.classList.toggle('article-open');
+    } else {
+      container.classList.toggle('article-open');
+      container.classList.toggle('article-close');
+    }
+    
+    span.classList.toggle('open');
+
+    if(span.classList.value == 'expandButton open') {
+      span.innerHTML = 'Click to Close';
+    } else {
+      span.innerHTML = 'Click to Expand';
+    };
+  });
+
+  close.addEventListener('click', () => {
+    container.style.display = 'none';
+  })
+
+  return container;
+};
+
+const articleContainer = document.querySelector('.articles');
+
+data.forEach(article => {  
+  articleContainer.appendChild(articleMaker(article.title, article.date, article.firstParagraph, article.secondParagraph, article.thirdParagraph));
+})
